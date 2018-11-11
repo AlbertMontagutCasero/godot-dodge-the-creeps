@@ -23,8 +23,10 @@ func _process(delta):
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed;
 		$AnimatedSprite.play()
+		$Trial.emitting = true
 	else:
 		$AnimatedSprite.stop()
+		$Trial.emitting = false
 
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screeenSize.x)

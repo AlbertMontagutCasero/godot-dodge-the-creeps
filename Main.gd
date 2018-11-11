@@ -15,26 +15,29 @@ func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
-	
+	$Music.stop()
+	$DeathMusic.play()
+
 func new_game():
 	score = 0
 	$HUD.update_score(score)
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$HUD.show_message("Get Ready")
+	$Music.play()
 
 func _on_ScoreTimer_timeout():
 	score += 1
 	$HUD.update_score(score)
-	
+
 func _on_StartTimer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
-	
+
 func _on_MobTimer_timeout():
 	# Choose a random location on Path2D.
 	$MobPath/MobSpawnLocation.set_offset(randi())
-	
+
 	var mob = Mob.instance()
 	add_child(mob)
 	var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
